@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/reset.css" />
+    <link rel="stylesheet" href="/assets/index.css" />
+    <link rel="stylesheet" href="/assets/header.css" />
+    <title>Agenda</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div id="link-container" class="nav-links">
+          <a href="#">Home</a>
+          <a href="#">Profile</a>
+          <a href="#">Altro Link</a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section id="section-one" class="container-section-one">
+
+        <div id="calendario" class="div-calendario">
+          <div id="month-name"></div>
+          <div id="calendar-grid"></div>
+        </div>
+
+        <div class="div-form">
+          <form id="form">
+            <label for="task-input">Task name: </label>
+            <input id="task-input" />
+            <label for="data-input">Select data:</label>
+            <input id="data-input" type="date" />
+            <div id="btn-container">
+              <button id="save-btn" class="btn">Save</button>
+              <!-- <button id="delete-btn" class="btn">Delete</button>
+                <button id="done-btn" class="btn"> Mark as done</button> -->
+            </div>
+          </form>
+        </div>
+      </section>
+      <section id="section-two">
+        <div id="task-container"></div>
+      </section>
+    </main>
+    <script src="/scripts/index.js"></script>
+  </body>
+</html>
