@@ -9,6 +9,11 @@ const sectionTwo = document.getElementById("section-two");
 const taskContainer = document.getElementById("task-container");
 
 const now = new Date();
+const today = now.getDate();
+const currentMonth = now.getMonth();
+const currentYear = now.getFullYear();
+
+
 
 const monthNames = [
   "Gennaio", // 0
@@ -25,17 +30,13 @@ const monthNames = [
   "Dicembre", //11
 ];
 
-const daysOfTheWeek = [
- 
-  "Lun",
-  "Mar",
-  "Mer",
-  "Gio",
-  "Ven",
-  "Sab",
-   "Dom",
-]
+const daysOfTheWeek = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
 
+//Arry per contenere tasks e date
+let tasks = []
+console.log(tasks)
+
+//todo: salvare anche la data nel local storage, e associarle ad una data del calendario
 const getMonth = () => {
   const monthIndex = now.getMonth();
   const currentMonth = monthNames[monthIndex];
@@ -71,53 +72,101 @@ const changeMonth = (m) => {
     monthTitle.innerText = `${currentMonth} ${now.getFullYear()}`;
     generaCalendario();
   }
-  console.log(monthTitle);
+
 };
 
-const showDetails = () => {
+//conrolla questo
+const showDetails = (e) => {
 
-}
+  console.log("in showDetails: ", tasks)
+  
+  const selectedDate = e.target.getAttribute("data-date"); 
+  console.log(selectedDate)
+  if (!selectedDate) return;
+  
+  console.log("prima del filtro: ",tasks)
+  const tasksForDate = tasks.filter(task => task.date === selectedDate);
+  console.log("consol log dopo il filtro: ",tasksForDate)
+  //console.log("Tasks for date:", d, tasks[d]);
+  if (tasksForDate.length === 0) return;
+  if (tasksForDate.length > 0){tasksForDate.forEach(task =>{
+    const divDetails = document.createElement("div");
+    divDetails.classList.add("div-details");
+  
+    const taskList = tasksForDate.map(task => `<li>${task.text}</li>`).join('')
+
+     divDetails.innerHTML =  `
+     <h4>Tasks for ${selectedDate}</h4>
+     <ul>
+     testo di prova:
+     ${taskList}
+     </ul>
+     <button id="close-modal">Chiudi</button>
+     `;
+
+  document.body.appendChild(divDetails);
+  const closeBtn = document.getElementById("close-modal");
+  closeBtn.addEventListener("click", () => {
+    divDetails.remove();
+  });
+  }
+
+  )}
+  
+};
+
+const taskToDay = () => {};
 
 const generaCalendario = () => {
   calendarGrid.innerHTML = "";
 
-  const today = now.getDate()
-
-// console.log(today)  
-  
-  daysOfTheWeek.forEach(day =>  {
+  daysOfTheWeek.forEach((day) => {
     const divWeekDay = document.createElement("div");
-    divWeekDay.classList.add("weekday")
+    divWeekDay.classList.add("weekday");
     divWeekDay.textContent = day;
     calendarGrid.appendChild(divWeekDay);
-  })
-  
-  const firstDayIndex = new Date(now.getFullYear(), now.getMonth(), 1).getDay();
+  });
 
-  for(let i = 0; i<firstDayIndex; i++){
+  const firstDayIndex = new Date(now.getFullYear(), now.getMonth(), 0).getDay();
+
+  for (let i = 0; i < firstDayIndex; i++) {
     const emptyDiv = document.createElement("div");
     emptyDiv.classList.add("empty-day");
     calendarGrid.appendChild(emptyDiv);
-
   }
-   //genera una data con num di giorni e anno
-  const daysOfTheMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-  //console.log(daysOfTheMonth);
+
+  //genera una data che corrisponde all'ultimo giorno del mese corrente
+    const daysOfTheMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    console.log(typeof daysOfTheMonth);
+    console.log("daysOfTheMonth: ", daysOfTheMonth);
+
   const numGiorni = daysOfTheMonth.getDate();
-  //console.log(numGiorni);
+    //console.log(numGiorni);
 
   for (let i = 0; i < numGiorni; i++) {
+    const day = i + 1;
+    const formattedDate = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+
     const divDay = document.createElement("div");
     divDay.classList.add("day-container");
     divDay.textContent = i + 1;
+    divDay.setAttribute("data-date", formattedDate);
+    divDay.setAttribute("data-month", now.getMonth());
+    divDay.setAttribute("data-year", now.getFullYear());
+    divDay.addEventListener("click", showDetails);
     calendarGrid.appendChild(divDay);
 
-  if(parseInt(divDay.textContent) === today){
-    divDay.classList.add("today")
-  }
+    document.querySelectorAll(".day-container").forEach((divDay) => {
+      const day = parseInt(divDay.textContent);
+      const month = parseInt(divDay.getAttribute("data-month"));
+      const year = parseInt(divDay.getAttribute("data-year"));
 
+      if (day === today && month === currentMonth && year === currentYear) {
+        divDay.classList.add("today");
+      }
+    });
   }
-
 };
 
 const createTaskTitle = () => {
@@ -136,7 +185,7 @@ const printTitle = () => {
 
 const displayTasks = () => {
   taskContainer.innerHTML = "";
-  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
   if (tasks.length > 0) {
     printTitle();
@@ -165,6 +214,8 @@ const doneTask = (e) => {
   taskTextElement.classList.toggle("cross");
 };
 
+
+
 const saveTask = (e) => {
   e.preventDefault();
 
@@ -173,7 +224,7 @@ const saveTask = (e) => {
 
   if (taskText === "") return;
 
-  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   tasks.push({ text: taskText, date: taskDate });
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
@@ -182,6 +233,7 @@ const saveTask = (e) => {
   printTitle();
 
   taskInput.value = "";
+  console.log("task salvate tamite saveTaks: ",tasks)
 };
 
 const createDivTask = (taskText, taskDate, index) => {
