@@ -1,0 +1,31 @@
+header {
+  background-color: #c49a6c; /* Cork color */
+  height: 8vh;
+  width: 100%;
+  margin-bottom: 1em;
+  display: flex;
+  align-items: center;
+  padding: 0 1em;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+}
+
+.nav-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 20px;
+  font-family: "Comic Sans MS", sans-serif;
+  padding: 0.25em 0.5em;
+  color: #8b5e3b; /* Dark brown */
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+  color: #ff8c42; /* Warm orange, matches the task dot */
+}

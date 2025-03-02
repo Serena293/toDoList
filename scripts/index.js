@@ -1,3 +1,5 @@
+const renderPage = () => {
+
 const calendario = document.getElementById("calendario");
 const taskInput = document.getElementById("task-input");
 const dataInput = document.getElementById("data-input");
@@ -12,8 +14,6 @@ const now = new Date();
 const today = now.getDate();
 const currentMonth = now.getMonth();
 const currentYear = now.getFullYear();
-
-
 
 const monthNames = [
   "Gennaio", // 0
@@ -33,8 +33,7 @@ const monthNames = [
 const daysOfTheWeek = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
 
 //Arry per contenere tasks e date
-let tasks = []
-console.log(tasks)
+let tasks = [];
 
 //todo: salvare anche la data nel local storage, e associarle ad una data del calendario
 const getMonth = () => {
@@ -72,30 +71,48 @@ const changeMonth = (m) => {
     monthTitle.innerText = `${currentMonth} ${now.getFullYear()}`;
     generaCalendario();
   }
-
 };
 
-//conrolla questo
+const addDot = () => {
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  document.querySelectorAll(".day-container").forEach((divDay) => {
+    const dayDate = divDay.getAttribute("data-date");
+
+    // Check if any task exists for this date
+    if (tasks.some((task) => task.date === dayDate)) {
+      let dot = divDay.querySelector(".dot");
+      if (!dot) {
+        dot = document.createElement("span");
+        dot.classList.add("dot");
+        divDay.appendChild(dot);
+      }
+    }
+  });
+};
+
 const showDetails = (e) => {
+  console.log("in showDetails: ", tasks);
 
-  console.log("in showDetails: ", tasks)
-  
-  const selectedDate = e.target.getAttribute("data-date"); 
-  console.log(selectedDate)
+  const selectedDate = e.target.getAttribute("data-date");
+  // console.log(selectedDate)
   if (!selectedDate) return;
-  
-  console.log("prima del filtro: ",tasks)
-  const tasksForDate = tasks.filter(task => task.date === selectedDate);
-  console.log("consol log dopo il filtro: ",tasksForDate)
-  //console.log("Tasks for date:", d, tasks[d]);
-  if (tasksForDate.length === 0) return;
-  if (tasksForDate.length > 0){tasksForDate.forEach(task =>{
-    const divDetails = document.createElement("div");
-    divDetails.classList.add("div-details");
-  
-    const taskList = tasksForDate.map(task => `<li>${task.text}</li>`).join('')
 
-     divDetails.innerHTML =  `
+  // console.log("prima del filtro: ",tasks)
+  const tasksForDate = tasks.filter((task) => task.date === selectedDate);
+  // console.log("consol log dopo il filtro: ",tasksForDate)
+
+  if (tasksForDate.length === 0) return;
+  if (tasksForDate.length > 0) {
+    tasksForDate.forEach((task) => {
+      const divDetails = document.createElement("div");
+      divDetails.classList.add("div-details");
+
+      const taskList = tasksForDate
+        .map((task) => `<li>${task.text}</li>`)
+        .join("");
+
+      divDetails.innerHTML = `
      <h4>Tasks for ${selectedDate}</h4>
      <ul>
      testo di prova:
@@ -104,20 +121,19 @@ const showDetails = (e) => {
      <button id="close-modal">Chiudi</button>
      `;
 
-  document.body.appendChild(divDetails);
-  const closeBtn = document.getElementById("close-modal");
-  closeBtn.addEventListener("click", () => {
-    divDetails.remove();
-  });
+      document.body.appendChild(divDetails);
+      const closeBtn = document.getElementById("close-modal");
+      closeBtn.addEventListener("click", () => {
+        divDetails.remove();
+      });
+    });
   }
-
-  )}
-  
 };
 
 const taskToDay = () => {};
 
 const generaCalendario = () => {
+ 
   calendarGrid.innerHTML = "";
 
   daysOfTheWeek.forEach((day) => {
@@ -136,17 +152,17 @@ const generaCalendario = () => {
   }
 
   //genera una data che corrisponde all'ultimo giorno del mese corrente
-    const daysOfTheMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-    console.log(typeof daysOfTheMonth);
-    console.log("daysOfTheMonth: ", daysOfTheMonth);
+  const daysOfTheMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
   const numGiorni = daysOfTheMonth.getDate();
-    //console.log(numGiorni);
+  //console.log(numGiorni);
 
   for (let i = 0; i < numGiorni; i++) {
     const day = i + 1;
-    const formattedDate = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-
+    const formattedDate = `${currentYear}-${String(currentMonth + 1).padStart(
+      2,
+      "0"
+    )}-${String(day).padStart(2, "0")}`;
 
     const divDay = document.createElement("div");
     divDay.classList.add("day-container");
@@ -155,6 +171,7 @@ const generaCalendario = () => {
     divDay.setAttribute("data-month", now.getMonth());
     divDay.setAttribute("data-year", now.getFullYear());
     divDay.addEventListener("click", showDetails);
+
     calendarGrid.appendChild(divDay);
 
     document.querySelectorAll(".day-container").forEach((divDay) => {
@@ -167,6 +184,7 @@ const generaCalendario = () => {
       }
     });
   }
+ 
 };
 
 const createTaskTitle = () => {
@@ -214,8 +232,6 @@ const doneTask = (e) => {
   taskTextElement.classList.toggle("cross");
 };
 
-
-
 const saveTask = (e) => {
   e.preventDefault();
 
@@ -233,7 +249,9 @@ const saveTask = (e) => {
   printTitle();
 
   taskInput.value = "";
-  console.log("task salvate tamite saveTaks: ",tasks)
+  // console.log("task salvate tamite saveTaks: ",tasks)
+
+  renderPage();
 };
 
 const createDivTask = (taskText, taskDate, index) => {
@@ -264,4 +282,8 @@ getMonth();
 generaCalendario();
 displayTasks();
 printTitle();
+addDot();
 saveBtn.addEventListener("click", saveTask);
+
+}
+renderPage()
