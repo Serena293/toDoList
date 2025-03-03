@@ -4,12 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/calendario.css">
+    <link rel="stylesheet" href="./assets/login.css">
     <title>Agenda</title>
 </head>
 <body>
-    <div id="month-name"></div>
-    <div id="calendar-grid"></div>
-    
+    <section id="login-section">
+        <div id="calendario" class="div-calendario">
+            <div id="month-name"></div>
+            <div id="calendar-grid"></div>
+          </div>
+    <div id="login-div">
+        <form id="login-form">
+                <label for="email-input">Email: </label>
+                <input id="email-input" />
+                <label for="password-input">Password</label>
+                <input id="password-input" type="password" />
+                <div id="btn-container">
+                  <button id="login-btn" class="btn">Login</button>
+                </div>
+        </form>
+    </div>
+    </section>
     <script type = module src="./scripts/login.js"></script>
 </body>
 </html>

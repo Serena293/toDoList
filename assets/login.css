@@ -1,0 +1,73 @@
+/* Overall section styling */
+#login-section {
+    display: flex; /* Arrange login form and calendar in a row */
+    justify-content: space-around; /* Space between form and calendar */
+    gap: 20px; /* Adds space between the form and calendar */
+    padding: 20px;
+    align-items: center;
+}
+
+/* Login form container */
+#login-div {
+    display: flex;
+    flex-direction: column; /* Stack the form items vertically */
+    max-width: 300px; /* Limit the width of the form */
+    background-color: #f5e1c8; /* Light warm beige background */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+}
+
+/* Styling the form elements */
+#login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adds space between form elements */
+}
+
+/* Label styling */
+label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #8b5e3b; /* Dark brown */
+}
+
+/* Input fields */
+input {
+    padding: 10px;
+    border: 1px solid #8b5e3b; /* Dark brown border */
+    border-radius: 4px; /* Rounded corners for inputs */
+    font-size: 14px;
+    color: #333;
+    background-color: #fff; /* White background */
+}
+
+/* Input focus styling */
+input:focus {
+    border-color: #ff8c42; /* Warm orange on focus */
+    outline: none;
+}
+
+/* Button container */
+#btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Login button */
+#login-btn {
+    padding: 10px 20px;
+    background-color: #8b5e3b; 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Button hover effect */
+#login-btn:hover {
+    background-color: #ff8c42; 
+}
