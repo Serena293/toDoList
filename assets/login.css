@@ -1,3 +1,9 @@
+body {
+    font-family: "Comic Sans MS";
+    background-color: #f5e1c8; /* Soft warm beige */
+    color: #333;
+  }
+
 /* Overall section styling */
 #login-section {
     display: flex; /* Arrange login form and calendar in a row */
@@ -15,14 +21,14 @@
     background-color: #f5e1c8; /* Light warm beige background */
     padding: 20px;
     border-radius: 8px; /* Rounded corners */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.174); /* Slight shadow for depth */
 }
 
 /* Styling the form elements */
 #login-form {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Adds space between form elements */
+    gap: 10px; 
 }
 
 /* Label styling */
@@ -43,10 +49,10 @@ input {
 }
 
 /* Input focus styling */
-input:focus {
-    border-color: #ff8c42; /* Warm orange on focus */
+/* input:focus {
+    border-color: #ff8c42;
     outline: none;
-}
+} */
 
 /* Button container */
 #btn-container {
@@ -70,4 +76,12 @@ input:focus {
 /* Button hover effect */
 #login-btn:hover {
     background-color: #ff8c42; 
+}
+
+#signin-link{
+    color: #8b5e3b;
+}
+
+#signin-link:hover{
+    color: #ff8c42; 
 }
