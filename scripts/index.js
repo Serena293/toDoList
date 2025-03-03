@@ -1,3 +1,5 @@
+import { getMonth, changeMonth, generaCalendario, monthNames, now, today, currentMonth, currentYear } from "./calendar.js";
+
 const renderPage = () => {
 
 const calendario = document.getElementById("calendario");
@@ -10,68 +12,68 @@ const sectionOne = document.getElementById("section-one");
 const sectionTwo = document.getElementById("section-two");
 const taskContainer = document.getElementById("task-container");
 
-const now = new Date();
-const today = now.getDate();
-const currentMonth = now.getMonth();
-const currentYear = now.getFullYear();
-
-const monthNames = [
-  "Gennaio", // 0
-  "Febbraio", // 1
-  "Marzo", // 2
-  "Aprile", // 3
-  "Maggio", // 4
-  "Giugno", // 5
-  "Luglio", // 6
-  "Agosto", // 7
-  "Settembre", // 8
-  "Ottobre", // 9
-  "Novembre", // 10
-  "Dicembre", //11
-];
-
-const daysOfTheWeek = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
-
 //Arry per contenere tasks e date
 let tasks = [];
 
+// const now = new Date();
+// const today = now.getDate();
+// const currentMonth = now.getMonth();
+// const currentYear = now.getFullYear();
+
+// const monthNames = [
+//   "Gennaio", // 0
+//   "Febbraio", // 1
+//   "Marzo", // 2
+//   "Aprile", // 3
+//   "Maggio", // 4
+//   "Giugno", // 5
+//   "Luglio", // 6
+//   "Agosto", // 7
+//   "Settembre", // 8
+//   "Ottobre", // 9
+//   "Novembre", // 10
+//   "Dicembre", //11
+// ];
+
+// const daysOfTheWeek = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
+
 //todo: salvare anche la data nel local storage, e associarle ad una data del calendario
-const getMonth = () => {
-  const monthIndex = now.getMonth();
-  const currentMonth = monthNames[monthIndex];
+//   const getMonth = () => {
+//   const monthIndex = now.getMonth();
+//   const currentMonth = monthNames[monthIndex];
 
-  const prevArrow = document.createElement("span");
-  prevArrow.innerHTML = "&larr;";
-  prevArrow.classList.add("prev-arrow");
+//   const prevArrow = document.createElement("span");
+//   prevArrow.innerHTML = "&larr;";
+//   prevArrow.classList.add("prev-arrow");
 
-  const nextArrow = document.createElement("span");
-  nextArrow.innerHTML = "&rarr;";
-  nextArrow.classList.add("next-arrow");
+//   const nextArrow = document.createElement("span");
+//   nextArrow.innerHTML = "&rarr;";
+//   nextArrow.classList.add("next-arrow");
 
-  const monthTitle = document.createElement("h3");
-  monthTitle.classList.add("tasks-title");
-  monthTitle.innerText = `${currentMonth} ${now.getFullYear()}`;
+//   const monthTitle = document.createElement("h3");
+//   monthTitle.classList.add("tasks-title");
+//   monthTitle.innerText = `${currentMonth} ${now.getFullYear()}`;
 
-  prevArrow.addEventListener("click", () => changeMonth(-1));
-  nextArrow.addEventListener("click", () => changeMonth(1));
+//   prevArrow.addEventListener("click", () => changeMonth(-1));
+//   nextArrow.addEventListener("click", () => changeMonth(1));
 
-  monthName.appendChild(prevArrow);
-  monthName.appendChild(monthTitle);
-  monthName.appendChild(nextArrow);
-};
+//   monthName.appendChild(prevArrow);
+//   monthName.appendChild(monthTitle);
+//   monthName.appendChild(nextArrow);
+// };
 
-const changeMonth = (m) => {
-  now.setMonth(now.getMonth() + m);
+// const changeMonth = (m) => {
+//   now.setMonth(now.getMonth() + m);
 
-  const monthIndex = now.getMonth();
-  const currentMonth = monthNames[monthIndex];
-  const monthTitle = document.querySelector("h3.tasks-title");
+//   const monthIndex = now.getMonth();
+//   const currentMonth = monthNames[monthIndex];
+//   const monthTitle = document.querySelector("h3.tasks-title");
 
-  if (monthTitle) {
-    monthTitle.innerText = `${currentMonth} ${now.getFullYear()}`;
-    generaCalendario();
-  }
-};
+//   if (monthTitle) {
+//     monthTitle.innerText = `${currentMonth} ${now.getFullYear()}`;
+//     generaCalendario();
+//   }
+// };
 
 const addDot = () => {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -130,62 +132,61 @@ const showDetails = (e) => {
   }
 };
 
-const taskToDay = () => {};
 
-const generaCalendario = () => {
+// const generaCalendario = () => {
  
-  calendarGrid.innerHTML = "";
+//   calendarGrid.innerHTML = "";
 
-  daysOfTheWeek.forEach((day) => {
-    const divWeekDay = document.createElement("div");
-    divWeekDay.classList.add("weekday");
-    divWeekDay.textContent = day;
-    calendarGrid.appendChild(divWeekDay);
-  });
+//   daysOfTheWeek.forEach((day) => {
+//     const divWeekDay = document.createElement("div");
+//     divWeekDay.classList.add("weekday");
+//     divWeekDay.textContent = day;
+//     calendarGrid.appendChild(divWeekDay);
+//   });
 
-  const firstDayIndex = new Date(now.getFullYear(), now.getMonth(), 0).getDay();
+//   const firstDayIndex = new Date(now.getFullYear(), now.getMonth(), 0).getDay();
 
-  for (let i = 0; i < firstDayIndex; i++) {
-    const emptyDiv = document.createElement("div");
-    emptyDiv.classList.add("empty-day");
-    calendarGrid.appendChild(emptyDiv);
-  }
+//   for (let i = 0; i < firstDayIndex; i++) {
+//     const emptyDiv = document.createElement("div");
+//     emptyDiv.classList.add("empty-day");
+//     calendarGrid.appendChild(emptyDiv);
+//   }
 
-  //genera una data che corrisponde all'ultimo giorno del mese corrente
-  const daysOfTheMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+//   //genera una data che corrisponde all'ultimo giorno del mese corrente
+//   const daysOfTheMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
-  const numGiorni = daysOfTheMonth.getDate();
-  //console.log(numGiorni);
+//   const numGiorni = daysOfTheMonth.getDate();
+//   //console.log(numGiorni);
 
-  for (let i = 0; i < numGiorni; i++) {
-    const day = i + 1;
-    const formattedDate = `${currentYear}-${String(currentMonth + 1).padStart(
-      2,
-      "0"
-    )}-${String(day).padStart(2, "0")}`;
+//   for (let i = 0; i < numGiorni; i++) {
+//     const day = i + 1;
+//     const formattedDate = `${currentYear}-${String(currentMonth + 1).padStart(
+//       2,
+//       "0"
+//     )}-${String(day).padStart(2, "0")}`;
 
-    const divDay = document.createElement("div");
-    divDay.classList.add("day-container");
-    divDay.textContent = i + 1;
-    divDay.setAttribute("data-date", formattedDate);
-    divDay.setAttribute("data-month", now.getMonth());
-    divDay.setAttribute("data-year", now.getFullYear());
-    divDay.addEventListener("click", showDetails);
+//     const divDay = document.createElement("div");
+//     divDay.classList.add("day-container");
+//     divDay.textContent = i + 1;
+//     divDay.setAttribute("data-date", formattedDate);
+//     divDay.setAttribute("data-month", now.getMonth());
+//     divDay.setAttribute("data-year", now.getFullYear());
+//     divDay.addEventListener("click", showDetails);
 
-    calendarGrid.appendChild(divDay);
+//     calendarGrid.appendChild(divDay);
 
-    document.querySelectorAll(".day-container").forEach((divDay) => {
-      const day = parseInt(divDay.textContent);
-      const month = parseInt(divDay.getAttribute("data-month"));
-      const year = parseInt(divDay.getAttribute("data-year"));
+//     document.querySelectorAll(".day-container").forEach((divDay) => {
+//       const day = parseInt(divDay.textContent);
+//       const month = parseInt(divDay.getAttribute("data-month"));
+//       const year = parseInt(divDay.getAttribute("data-year"));
 
-      if (day === today && month === currentMonth && year === currentYear) {
-        divDay.classList.add("today");
-      }
-    });
-  }
+//       if (day === today && month === currentMonth && year === currentYear) {
+//         divDay.classList.add("today");
+//       }
+//     });
+//   }
  
-};
+// };
 
 const createTaskTitle = () => {
   const titleTask = document.createElement("h4");
@@ -225,6 +226,8 @@ const deleteTask = (index) => {
     const existingTitle = document.querySelector("h4.tasks-title");
     if (existingTitle) existingTitle.remove();
   }
+
+  renderPage()
 };
 
 const doneTask = (e) => {
@@ -278,8 +281,15 @@ const createDivTask = (taskText, taskDate, index) => {
   deleteBtn.addEventListener("click", () => deleteTask(index));
 };
 
-getMonth();
-generaCalendario();
+if (monthName && calendarGrid) {
+  getMonth(monthName, (m) => changeMonth(m, calendarGrid, monthName));
+  generaCalendario(calendarGrid, showDetails);
+} else {
+  console.error("Calendar elements not found on the page!");
+}
+
+// getMonth();
+// generaCalendario();
 displayTasks();
 printTitle();
 addDot();

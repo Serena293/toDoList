@@ -57,3 +57,24 @@
   bottom: 3px;
   right: 3px;
 }
+
+h3 {
+  font-size: 25px;
+  margin: 0.25em;
+  color: #8b5e3b; /* Dark brown */
+}
+
+.prev-arrow,
+.next-arrow {
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+  color: #8b5e3b; /* Dark brown */
+}
+
+#month-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}

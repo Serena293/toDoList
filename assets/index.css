@@ -4,31 +4,10 @@ body {
   color: #333;
 }
 
-.prev-arrow,
-.next-arrow {
-  cursor: pointer;
-  font-size: 20px;
-  user-select: none;
-  color: #8b5e3b; /* Dark brown */
-}
-
 .div-calendario {
   display: flex;
   flex-direction: column;
   margin-left: 5vh;
-}
-
-h3 {
-  font-size: 25px;
-  margin: 0.25em;
-  color: #8b5e3b; /* Dark brown */
-}
-
-#month-name {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
 }
 
 .container-section-one {
@@ -101,7 +80,7 @@ h3 {
 
 #task-container {
   background-color: #c49a6c; /* Cork color */
-  background-image: url('https://www.transparenttextures.com/patterns/cork-board.png'); /* Cork texture */
+  background-image: url("https://www.transparenttextures.com/patterns/cork-board.png"); /* Cork texture */
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
@@ -146,7 +125,7 @@ h3 {
 }
 
 .div-details {
-  position: fixed; 
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
